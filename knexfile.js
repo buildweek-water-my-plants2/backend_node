@@ -1,5 +1,8 @@
 // Update with your config settings.
 
+const pgConnection = process.env.DATABASE_URL || "postgresql://postgres@localhost/hobbits";
+
+
 module.exports = {
 
   development: {
@@ -21,24 +24,19 @@ module.exports = {
     },
   },
 
-
   production: {
-    client: "sqlite3",
-    useNullAsDefault: true,
-    connection: {
-      filename: "./data/users.db3",
-    },
+    client: "pg",
+    connection: pgConnection,
     pool: {
-      afterCreate: (conn, done) => {
-        conn.run("PRAGMA foreign_keys = ON", done);
-      },
+        min: 2,
+        max: 10,
     },
     migrations: {
-      directory: "./data/migrations",
+        directory: "./data/migrations",
     },
     seeds: {
-      directory: "./data/seeds",
+        directory: "./data/seeds",
     },
-  },
+},
 
 };
