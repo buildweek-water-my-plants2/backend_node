@@ -14,7 +14,7 @@ function find() {
 		'id',
 		'username',
 		'password',
-		'phonenumber'
+		'phoneNumber'
 	);
 }
 
