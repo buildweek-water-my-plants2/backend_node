@@ -55,14 +55,7 @@ router.post('/user/:userid', (req, res) => {
 	const newPlant = req.body;
 	Plants.add(newPlant, userid)
 		.then(plantId => {
-            Plants.findById(plantId)
-            .first()
-            .then(plant => {
-                res.status(201).json(plant);
-            })
-            .catch(err => {
-                res.status(400).json({message: "hmmm", error: err.message, data: plantId})
-            })
+            res.status(201).json({plantId})
 		})
 		.catch(err => {
 			res.status(500).json({ message: "could not add plant", error: err.message });
@@ -116,3 +109,13 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
+
+
+       // Plants.findById(plantId)
+            // .first()
+            // .then(plant => {
+            //     res.status(201).json(plant);
+            // })
+            // .catch(err => {
+            //     res.status(400).json({message: "hmmm", error: err.message, data: plantId})
+            // })
