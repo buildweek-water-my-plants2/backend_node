@@ -54,11 +54,11 @@ router.post('/user/:userid', (req, res) => {
     const { userid } = req.params
 	const newPlant = req.body;
 	Plants.add(newPlant, userid)
-		.then((plant) => {
+		.then(plant => {
 			res.status(201).json({ plant });
 		})
-		.catch((err) => {
-			res.status(500).json({ message: err.message });
+		.catch(err => {
+			res.status(500).json({ message: "could not add plant", error: err });
 		});
 });
 
