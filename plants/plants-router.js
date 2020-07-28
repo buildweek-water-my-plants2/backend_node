@@ -103,7 +103,7 @@ router.delete('/:id', (req, res) => {
 			console.log(err);
 			res
 				.status(500)
-				.json({ errorMessage: `cannot remove plant by ID: ${id}` });
+				.json({ message: `cannot remove plant by ID: ${id}`, error: err.message });
 		});
 });
 
