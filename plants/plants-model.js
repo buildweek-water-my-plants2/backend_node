@@ -33,12 +33,9 @@ function update(id, changes) {
 }
 
 
-async function remove(id){
-    const found = await findById(id)
+function remove(id){
     return db("plants")
         .where({ id })
         .delete()
-        .then(() => {
-            return found  
-        })
+     
 }
