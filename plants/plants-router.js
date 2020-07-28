@@ -34,7 +34,7 @@ router.get('/user/:userid', (req, res) => {
 router.get('/:id', (req, res) => {
 	const { id } = req.params;
 	Plants.findById(id)
-		.then((plant) => {
+		.then(plant => {
 			res.status(200).json(plant);
 			res.status(404).json({
 				message: `Could not find plant with ID: ${id}.`,
@@ -58,7 +58,7 @@ router.post('/user/:userid', (req, res) => {
 			res.status(201).json({ plant });
 		})
 		.catch(err => {
-			res.status(500).json({ message: "could not add plant", error: err });
+			res.status(500).json({ message: "could not add plant", error: err.message });
 		});
 });
 
