@@ -61,7 +61,7 @@ router.post('/user/:userid', (req, res) => {
                 res.status(201).json(plant);
             })
             .catch(err => {
-                res.status(400).json({message: "hmmm", error: err.message})
+                res.status(400).json({message: "hmmm", error: err.message, data: plantId})
             })
 		})
 		.catch(err => {
