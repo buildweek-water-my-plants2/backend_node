@@ -17,9 +17,9 @@ router.get('/', (req, res) => {
 
 // **get plants of a specified user 
 
-router.get('/user/:id', (req, res) => {
-	const { id } = req.params;
-	Plants.findByUser(id)
+router.get('/user/:userid', (req, res) => {
+	const { userid } = req.params;
+	Plants.findByUser(userid)
 		.then((plants) => {
 			res.status(200).json(plants);
 		})
@@ -50,10 +50,10 @@ router.get('/:id', (req, res) => {
 // add a plant 
 // need to grab user_id and include that somehow 
 
-router.post('/user/:id', (req, res) => {
-    const { id } = req.params
+router.post('/user/:userid', (req, res) => {
+    const { userid } = req.params
 	const newPlant = req.body;
-	Plants.add(newPlant, id)
+	Plants.add(newPlant, userid)
 		.then((plant) => {
 			res.status(201).json({ plant });
 		})
