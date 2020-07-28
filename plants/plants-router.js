@@ -54,8 +54,15 @@ router.post('/user/:userid', (req, res) => {
     const { userid } = req.params
 	const newPlant = req.body;
 	Plants.add(newPlant, userid)
-		.then(plant => {
-			res.status(201).json(plant);
+		.then(plantId => {
+            Plants.findById(plantId)
+            .first()
+            .then(plant => {
+                res.status(201).json(plant);
+            })
+            .catch(err => {
+                res.status(400).json({message: "hmmm", error: err.message})
+            })
 		})
 		.catch(err => {
 			res.status(500).json({ message: "could not add plant", error: err.message });
