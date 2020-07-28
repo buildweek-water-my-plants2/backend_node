@@ -91,11 +91,12 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
 	const { id } = req.params;
-    Plants.remove({ id })
+    Plants.remove(id)
 		.then((deletedPlant) => {
             if(deletedPlant){
             res.status(201).json({ message: `plant ID: ${id} has been removed`, deletedPlant });
             } else {
+                console.log(deletedPlant)
                 res.status(400).json({message: 'you cannot delete what does not exist'})
             }
 		})

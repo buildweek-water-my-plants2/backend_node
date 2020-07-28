@@ -17,10 +17,10 @@ function findByUser(userid) {
 	return db('plants').where('user_id', userid);
 }
 
-function add(plant, userid) {
-    plant.user_id = userid; 
-	return db('plants').insert(plant);
-
+async function add(plant, userid) {
+    plant.user_id = userid;
+	const [id] = await db('plants').insert(plant);
+	return findById(id);
 }
 
 function findById(id) {
@@ -33,9 +33,12 @@ function update(id, changes) {
 }
 
 
-function remove(id){
+async function remove(id){
+    const found = await findById(id)
     return db("plants")
         .where({ id })
         .delete()
-     
+        .then(() => {
+            return found  
+        })
 }
