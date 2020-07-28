@@ -19,7 +19,7 @@ function findByUser(userid) {
 
 function add(plant, userid) {
     plant.user_id = userid;
-	return db('plants').insert(plant);
+	return db('plants').insert(plant, 'id');
 
 }
 
