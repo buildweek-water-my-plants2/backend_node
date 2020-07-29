@@ -14,6 +14,7 @@ exports.up = function(knex) {
         tbl.string("species", 128)
         tbl.string("h2ofrequency", 128).notNullable()
         tbl.integer("user_id").unsigned().notNullable().references("users.id").onDelete('CASCADE');
+        tbl.binary("image"); // rollback + latest to get this 
     })
 };
 
