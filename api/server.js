@@ -16,7 +16,7 @@ server.use(cors());
 //add restricted middleware
 
 server.use("/api/auth", authRouter);
-server.use("/api/plants", plantsRouter);
+server.use("/api/plants", restricted, plantsRouter);
 server.use("/api/users", usersRouter);
 
 server.get("/", (req, res) => {

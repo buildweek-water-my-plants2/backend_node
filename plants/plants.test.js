@@ -33,7 +33,6 @@ beforeAll((done) => {
     });
 });
 
-
 describe("get plants for a specific user", () => {
   // token not being sent - should respond with a 401
   test("It should require authorization", () => {
@@ -52,47 +51,75 @@ describe("get plants for a specific user", () => {
         expect(response.statusCode).toBe(200);
       });
   });
+});
 
-  describe("can add a plant", () => {
-    // token not being sent - should respond with a 401
-    test("It should require authorization", () => {
-      return supertest(server)
-        .get("/api/plants/user/1")
-        .then((response) => {
-          expect(response.statusCode).toBe(401);
-        });
-    });
-    // send the token - should respond with a 200
-    test("It adds a new plant", () => {
-      return supertest(server)
-        .post("/api/plants/user/1")
-        .set("Authorization", token)
-        .send({
-          nickname: "jodie",
-          species: "snake",
-          h2ofrequency: "once a week",
-        })
-        .then((response) => {
-          expect(response.statusCode).toBe(201);
-        });
-    });
-
-    describe("can update a plant", () => {
-
-      test("updates plant", () => {
-        return supertest(server)
-          .put("/api/plants/1")
-          .set("Authorization", token)
-          .send({
-            nickname: "UPDATED",
-            species: "snake",
-            h2ofrequency: "once a week",
-          })
-          .then((response) => {
-            expect(response.statusCode).toBe(200);
-          });
+describe("can add a plant", () => {
+  // token not being sent - should respond with a 401
+  test("It should require authorization", () => {
+    return supertest(server)
+      .get("/api/plants/user/1")
+      .then((response) => {
+        expect(response.statusCode).toBe(401);
       });
-    });
+  });
+  // send the token - should respond with a 200
+  test("It adds a new plant", () => {
+    return supertest(server)
+      .post("/api/plants/user/1")
+      .set("Authorization", token)
+      .send({
+        nickname: "jodie",
+        species: "snake",
+        h2ofrequency: "once a week",
+      })
+      .then((response) => {
+        expect(response.statusCode).toBe(201);
+      });
+  });
+});
+
+describe("can update a plant", () => {
+  test("updates plant", async () => {
+    let res = await supertest(server)
+    .post("/api/plants/user/1")
+    .set({ Authorization: token })
+    .send({
+        nickname: "jodie",
+        species: "snake",
+        h2ofrequency: "once a week",
+      });
+  expect(res.status).toBe(201);
+
+    res = await supertest(server)
+      .put("/api/plants/")
+      .set({ Authorization: token })
+      .send({
+        nickname: "UPDATED",
+        species: "snake",
+        h2ofrequency: "once a week",
+      });
+    expect(res.status).toBe(200);
+    // return supertest(server)
+    //   .post("/api/plants/user/1")
+    //   .set("Authorization", token)
+    //   .send({
+    //     nickname: "jodie",
+    //     species: "snake",
+    //     h2ofrequency: "once a week",
+    //   })
+    //   .then(() => {
+    //     return supertest(server)
+    //       .put("/api/plants/1")
+    //       .set("Authorization", token)
+    //       .send({
+    //         nickname: "UPDATED",
+    //         species: "snake",
+    //         h2ofrequency: "once a week",
+    //       })
+    //       .then((response) => {
+    //         expect(response.statusCode).toBe(200);
+    //       });
+    //   });
   });
 });
 
@@ -114,7 +141,6 @@ describe("get plants for a specific user", () => {
 // const plants = await db("plants");
 
 // expect(plants[0].nickname).toBe("UPDATED");
-
 
 // beforeEach(async () => {
 //     return supertest(server)
