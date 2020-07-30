@@ -72,7 +72,7 @@ router.put('/:id', (req, res) => {
 			plant
 				? Plants.update(id, changes).then((updated) => {
 						res.status(200).json({
-							message: `successfully updated plant ID: ${id}`,
+							message: `successfully updated plant ID: ${id}`
 						});
 				  })
 				: res.status(404).json({
